@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+
+	<!-- CSS here -->
+    <div th:replace="components/header_footer.html :: common-style"></div>
+    <link rel="stylesheet" th:href="@{/css/forgot_password_page.css}">
+</head>
+<body>
+    <!-- ? Preloader Start -->
+    <div th:replace="components/header_footer.html :: user-preload"></div>
+    <!-- Preloader Start-->
+
+
+    <main class="login-body">
+        <!-- Login Admin -->
+        <form class="form-default" th:action="@{/account/login}" method="POST">
+            
+            <div class="login-form">
+                <!-- logo-login -->
+
+                <h2>Login Here</h2>
+                <span style = "font-size: 15px; color:red" th:if="${param.error}">Invalid Email/Password!</span>
+                <div class="form-input">
+                    <label>Email</label>
+                    <input type="email" name="username" placeholder="Email">
+                </div>
+                <div class="form-input">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-input pt-30">
+                    <input type="submit" name="submit" value="login">
+                </div>
+		<div class="pt-30">
+		<label style="color: white;">Remember Me?</label>
+                <input type="checkbox" name="remember-me">
+        </div>
+		<div>
+                <!-- Forget Password -->
+                <a href="/account/forgotPassword" class="forget">Forget Password</a>
+                <!-- Forget Password -->
+                <a href="/account/register" class="registration">Registration</a>
+
+            </div>
+            </div>
+        </form>
+        <!-- /end login form -->
+    </main>
+
+<!-- JS here -->
+    <th:block th:insert="components/header_footer.html :: common-script">
+    </th:block>
+
+    </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Question | Create</title>
+    <!-- CSS here -->
+    <!-- Admin common css -->
+    <div th:replace="components/header_footer.html :: admin-common-style">
+    </div>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/admin_subject_page.css}" rel="stylesheet"/>
+</head>
+<body>
+<style>
+    #hideMe {
+        -webkit-animation: cssAnimation 5s forwards;
+        animation: cssAnimation 5s forwards;
+    }
+    @keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }
+    @-webkit-keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }
+</style>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"
+     th:replace="components/header_footer.html :: admin-header">
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <!-- Admin side nav -->
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
+             th:replace="components/header_footer.html :: admin-side-nav">
+        </nav>
+        <!-- -->
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Question Management
+                    </li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Create Question
+                        <button id="btnBack" type="button" class="btn btn-primary" style="float: right" onclick="returnToList()">
+                            Back
+                        </button>
+                    </div>
+                        <div class="col-lg-12 card-body" style="width: 70%">
+                            <div style = "color: red; margin: 10px" th:text = "${message}" id="hideMe"></div>
+                            <form th:action="@{/question/addquestion}" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3 w-100">
+                                            <label class="form-label" for="question"><strong>Question</strong></label>
+                                            <textarea class="form-control" style="resize: none" rows="10" cols="20" type="text" id="question" placeholder="Question" name="question" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="row-cols-1">
+                                            <div class="mb-3">
+                                                <input type="hidden" name="lessonId" th:value="${lessonId}" id="lessonId">
+                                                <label class="form-label" for="answer1"><strong>Answer1</strong></label>
+                                                <input class="form-control" style="width: 830px" type="text" id="answer1" placeholder="Answer" name="answer1" required>
+                                                <input type="radio" value="1" name="isAnswer" th:checked="true">Is Answer</br>
+
+                                                <label class="form-label" for="answer2"><strong>Answer2</strong></label>
+                                                <input class="form-control" style="width: 830px" type="text" id="answer2" placeholder="Answer" name="answer2" required>
+                                                <input type="radio" value="2" name="isAnswer">Is Answer</br>
+
+                                                <label class="form-label" for="answer3"><strong>Answer3</strong></label>
+                                                <input class="form-control" style="width: 830px" type="text" id="answer3" placeholder="Answer" name="answer3" required>
+                                                <input type="radio" value="3" name="isAnswer">Is Answer</br>
+
+                                                <label class="form-label" for="answer4"><strong>Answer4</strong></label>
+                                                <input class="form-control" style="width: 830px" type="text" id="answer4" placeholder="Answer" name="answer4" required>
+                                                <input type="radio" value="4" name="isAnswer">Is Answer</br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="explain"><strong>Explain</strong></label>
+                                            <textarea class="form-control" style="resize: none" rows="10" cols="20" type="text" id="explain" placeholder="Explain" name="explain" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="row-cols-1">
+                                        <div class="mb-3 w-100">
+                                            <button class="btn btn-primary btn-sm" onclick="submit()" type="submit">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <footer th:replace="components/header_footer.html :: admin-footer">
+            </footer>
+        </main>
+    </div>
+
+</div>
+<!-- placeholder for modal -->
+</div>
+<!-- Admin common js -->
+<th:block th:insert="components/header_footer.html :: admin-common-script">
+</th:block>
+<!-- JS here -->
+<script th:src="@{/js/vendor/modernizr-3.5.0.min.js}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Jquery Mobile Menu -->
+<script th:src="@{/js/jquery.slicknav.min.js}"></script>
+
+<!-- Video bg -->
+<script th:src="@{/js/jquery.vide.js}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/slick.min.js}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/animated.headline.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.js}"></script>
+
+<!-- Date Picker -->
+<script th:src="@{/js/gijgo.min.js}"></script>
+<!-- Nice-select, sticky -->
+<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/js/jquery.sticky.js}"></script>
+<!-- Progress -->
+<script th:src="@{/js/jquery.barfiller.js}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script th:src="@{/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/js/waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/hover-direction-snake.min.js}"></script>
+
+<!-- contact js -->
+<script th:src="@{/js/contact.js}"></script>
+<script th:src="@{/js/jquery.form.js}"></script>
+<script th:src="@{/js/jquery.validate.min.js}"></script>
+<script th:src="@{/js/mail-script.js}"></script>
+<script th:src="@{/js/jquery.ajaxchimp.min.js}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script th:src="@{/js/plugins.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script>
+    function submit(){
+        var answer1 = document.getElementById("answer1");
+        var answer2 = document.getElementById("answer2");
+        var answer3 = document.getElementById("answer3");
+        var answer4 = document.getElementById("answer4");
+        var isAnswer = document.getElementsByName("isAnswer").values();
+        var question = document.getElementById("question");
+        var explain = document.getElementById("explain");
+        var lessonId = document.getElementById("lessonId").value;
+        $.ajax({
+            url:"/question/addquestion",
+            type:"post",
+            data:{
+                question : question,
+                answer1 : answer1,
+                answer2 : answer2,
+                answer3 : answer3,
+                answer4 : answer4,
+                isAnswer : isAnswer,
+                explain : explain
+            },
+            success: function (){
+                alert("Add successful!");
+            }
+        })
+    }
+    function returnToList(){
+        let lessonId = document.getElementById('lessonId').value;
+        window.location.replace("/question/list/" + lessonId);
+    }
+</script>
+</body>
+</html>

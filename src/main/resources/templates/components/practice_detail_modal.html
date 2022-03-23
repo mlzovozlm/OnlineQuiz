@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Modal -->
+<div class="modal fade" id="practiceDetailModal" role="dialog" th:fragment="practiceDetailModal">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Practice Detail</h1>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                        <span>
+                            <h3 class="modal-title">Subject</h3>
+                        </span>
+                <span type="text" id="subjectId" th:value="${subject.getId()}" th:text="${subject.getName()}"
+                      readonly></span>
+
+            </div>
+            <div class="modal-body">
+                        <span>
+                            <h3>Lesson</h3>
+                        </span>
+                <select id="lessonId" style="width: 67%;" onchange="showNumber()">
+                    <option th:each="lesson : ${lessonList}" th:value="${lesson.getId()}" th:text="${lesson.getName()}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="modal-body">
+                        <span>
+                            <h3>Number of question</h3>
+                        </span>
+                <input type="number" id="numberInput">
+                <span>
+                    <h3 style="margin-top:revert">Total Question: </h3><h3 id="number"></h3>
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="start()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Account Management</title>
+    <!-- Admin common css -->
+    <div th:replace="components/header_footer.html :: admin-common-style">
+    </div>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/admin_account_page.css}" rel="stylesheet"/>
+</head>
+<body class="sb-nav-fixed">
+<!-- Admin header -->
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" th:replace="components/header_footer.html :: admin-header">
+</nav>
+<!-- -->
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <!-- Admin side nav -->
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" th:replace="components/header_footer.html :: admin-side-nav">
+        </nav>
+        <!-- -->
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Account</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Account management</li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        List Account
+                        <button id="addBlogButton" type="button" class="btn btn-primary"
+                                onclick="showAccountAddModal()">Add Account
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <table id="AccountDatatable" style="width:100%;">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="components/header_footer.html :: admin-footer">
+        </footer>
+    </div>
+</div>
+<!-- Edit Account Modal -->
+<div class="modal fade" id="accountEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="accountEditForm" th:object="${accountEditDTO}"
+                  th:action="@{/admin/account/edit}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Account Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="editAccountImg"><br>
+                    <!--                    <input type="hidden" id="editBlogImgSrc" th:name="imgSrc">-->
+                    <!--                    <input type="hidden" id="editBlogStatusStr" th:name="statusStr" value="">-->
+                    <table class="formTable" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td class="formField">Id:</td>
+                            <td class="formInput"><input type="text" id="editAccountId" th:name="id" value="0" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fullname:</td>
+                            <td><input type="text" id="editAccountFullname" th:name="fullName" required></td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td><input type="text" id="editAccountGender" th:name="gender" required></td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td><input type="text" id="editAccountEmail" th:name="email" required></td>
+                        </tr>
+                        <tr>
+                            <td>Phone:</td>
+                            <td><input type="text" id="editAccountPhone" th:name="phone" required></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Add Account Modal -->
+<div class="modal fade" id="accountAddModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="accountAddForm" th:object="${accountAddDTO}"
+                  th:action="@{/admin/account/add}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Account Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<!--                    <img id="editAccountImg"><br>-->
+                    <!--                    <input type="hidden" id="editBlogImgSrc" th:name="imgSrc">-->
+                    <!--                    <input type="hidden" id="editBlogStatusStr" th:name="statusStr" value="">-->
+                    <table class="formTable" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>Full name:</td>
+                            <td><input  type="text" th:field="*{fullName}" placeholder="Full name" required></td>
+                        </tr>
+                        <tr>
+                            <td>Email Address:</td>
+                            <td><input type="email" th:field="*{email}" placeholder="Email Address" required oninput="checkEmailValid(this);"></td>
+                        </tr>
+                        <tr>
+                            <td>Phone:</td>
+                            <td><input type="tel" th:field="*{phone}" placeholder="888888888" maxlength="9" required pattern="[0-9]{9}"></td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td><input type="password" th:field="*{password}" placeholder="Password" id="password" name="password" required oninput="checkPasswordValid(this);"></td>
+                        </tr>
+                        <tr>
+                            <td>Confirm Password:</td>
+                            <td><input type="password" name="passwordConfirm" placeholder="Confirm Password" required oninput="checkPasswordMatch(this);"></td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td>
+                                <label>Male</label>
+                                <input type="radio" th:field="*{gender}" value="0" >
+                            </td>
+                            <td>
+                                <label>Female </label>
+                                <input type="radio" th:field="*{gender}" value="1">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Admin common js -->
+<th:block th:insert="components/header_footer.html :: admin-common-script">
+</th:block>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script th:src="@{/js/admin_account_page.js}"></script>
+<!-- -->
+</body>
+</html>

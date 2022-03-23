@@ -1,0 +1,28 @@
+#profile-button-contain{
+    display: none;
+}
+#manage-button-contain{
+    display: none;
+}
+.padding {
+    padding: 10rem !important
+}
+
+.form-control {
+    height: 52px !important;
+    background: #fff !important;
+    color: #3a4348 !important;
+    font-size: 18px;
+    border-radius: 0px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important
+}
+
+.px-4 {
+    padding-left: 1.5rem !important
+}
+
+.searchBar{
+    padding-right: 50px;
+    float: right;
+}

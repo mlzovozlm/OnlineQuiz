@@ -1,0 +1,1 @@
+SELECT b FROM Blog b WHERE b.id = :id

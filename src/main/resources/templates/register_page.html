@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Register</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+
+	<!-- CSS here -->
+    <div th:replace="components/header_footer.html :: common-style"></div>
+
+    <link rel="stylesheet" th:href="@{/css/forgot_password_page.css}">
+</head>
+<body>
+    <!-- ? Preloader Start -->
+    <div th:replace="components/header_footer.html :: user-preload"></div>
+    <!-- Preloader Start-->
+
+
+<!-- Register -->
+
+<main class="login-body">
+    <!-- form -->
+    <form class="form-default" th:action="@{/account/register}" method="POST" th:object="${registerDTO}">
+        
+        <div class="login-form" style="padding: 180px 45px 0px 45px;">
+            <!-- logo-login -->
+            <div class="logo-login">
+                <a href=""><img th:src="@{/img/logo/loader.png}" alt=""></a>
+            </div>
+            <h2 style="margin-bottom: 10px">Registration Here</h2>
+            <div style = "color: red" th:text = "${message}"></div>
+            <div class="form-input">
+                <label>Full name</label>
+                <input  type="text" th:field="*{fullName}" placeholder="Full name" required>
+            </div>
+            <div class="form-input">
+                <label>Email Address</label>
+                <input type="email" th:field="*{email}" placeholder="Email Address" required oninput="checkEmailValid(this);">
+            </div>
+            <div class="form-input">
+                <label>Phone</label>
+                <input type="tel" th:field="*{phone}" placeholder="888888888" maxlength="9" required pattern="[0-9]{9}">
+            </div>
+            <div class="form-input">
+                <label>Password</label>
+                <input type="password" th:field="*{password}" placeholder="Password" id="password" name="password" required oninput="checkPasswordValid(this);">
+            </div>
+            <div class="form-input">
+                <label>Confirm Password</label>
+                <input type="password" name="passwordConfirm" placeholder="Confirm Password" required oninput="checkPasswordMatch(this);">
+            </div>
+            <div>
+		    <label style="color:white">Gender</label>
+            </div>
+                <label style = "color:white">Male</label>
+                <input type="radio" th:field="*{gender}" value="0" >
+		        <label style = "color:white">Female </label>
+                <input type="radio" th:field="*{gender}" value="1">
+            <div class="form-input pt-30">
+                <input type="submit" name="submit" value="Registration">
+            </div>
+            <a href="/account/login" class="formLink">Login</a>
+            <a th:fragment="home" href="/home" class="formLink">Home</a>
+        </div>
+    </form>
+    <!-- /end login form -->
+</main>
+
+    <th:block th:insert="components/header_footer.html :: common-script">
+    </th:block>
+
+    <script th:src="@{/js/register_page.js}"></script>
+
+    </body>
+</html>

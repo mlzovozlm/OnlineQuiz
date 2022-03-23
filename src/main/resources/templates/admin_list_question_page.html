@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Question Management</title>
+    <!-- Admin common css -->
+    <div th:replace="components/header_footer.html :: admin-common-style">
+    </div>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/admin_subject_page.css}" rel="stylesheet"/>
+</head>
+<body>
+<style>
+    #hideMe {
+        -webkit-animation: cssAnimation 5s forwards;
+        animation: cssAnimation 5s forwards;
+    }
+    @keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }
+    @-webkit-keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }
+</style>
+    <!-- Admin header -->
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"
+         th:replace="components/header_footer.html :: admin-header">
+    </nav>
+    <!-- -->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <!-- Admin side nav -->
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
+                 th:replace="components/header_footer.html :: admin-side-nav">
+            </nav>
+            <!-- -->
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Question</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Question Management
+                        </li>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            List Question
+                            <button id="addSubjectButton" type="button" class="btn btn-primary" style="float: right" onclick="createQuestion()">
+                                Add Question
+                            </button>
+                        </div>
+                        <div style = "color: red; margin: 10px" th:text = "${message}" id="hideMe"></div>
+                        <div class="card-body">
+                            <table id="QuestionDatatable" style="width:100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer th:replace="components/header_footer.html :: admin-footer">
+            </footer>
+        </div>
+    </div>
+<!--    Detail modal-->
+    <!-- Modal -->
+    <div id="detailQuestionModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3 w-100">
+                                    <label class="form-label" for="question"><strong>Question</strong></label>
+                                    <textarea class="form-control" style="resize: none" rows="5" type="text"
+                                              id="question" placeholder="Question" name="question" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="row-cols-1">
+                                    <div class="mb-3">
+                                        <input type="hidden" name="lessonId" id="lessonId" th:value="${question_list.get(0).getLesson().getId()}">
+                                        <input type="hidden" name="questionId" id="questionId">
+                                        <label class="form-label" for="answer"><strong>Answer</strong></label>
+                                        <input class="form-control" style="width: 300px" type="text" id="answer" placeholder="Answer"
+                                               name="answer" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="mb-3">
+                                    <label class="form-label" for="explain"><strong>Explain</strong></label>
+                                    <textarea class="form-control" style="resize: none" rows="5" type="text"
+                                              id="explain" placeholder="Explain" name="explain" readonly></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary btn-sm" onclick="edit()" id="btnEdit" type="submit">Edit</a>
+                    <button type="button" class="btn btn-default" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- placeholder for modal -->
+    </div>
+    <!-- Admin common js -->
+    <th:block th:insert="components/header_footer.html :: admin-common-script">
+    </th:block>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/list_question_page.js}"></script>
+</body>
+</html>
