@@ -9,10 +9,9 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
     <div th:replace="components/header_footer.html :: common-style"></div>
-    <link rel="stylesheet" th:href="@{/css/searching-practice-list.css}">
-    <link rel="stylesheet" th:href="@{/css/practice_detail.css}">
     <link rel="stylesheet" th:href="@{/css/user_course_detail_modal.css}">
     <link rel="stylesheet" th:href="@{/css/home_page.css}">
+    <link rel="stylesheet" th:href="@{/css/create-quiz-package.css}">
 
 </head>
 
@@ -46,8 +45,11 @@
                                 <!--                                <h1 data-animation="bounceIn" data-delay="0.2s"-->
                                 <!--                                    th:text="${subject.get().getName()}"></h1>-->
                                 <!-- breadcrumb Start-->
-                                <nav class="header-area header-transparent"
-                                     th:replace="components/header_footer.html :: nav-page">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">New Quiz Package</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                                    </ol>
                                 </nav>
                                 <!-- breadcrumb End -->
                             </div>
@@ -59,45 +61,42 @@
     </section>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
-    <!-- New Package and QuizHistory -->
-    <div th:replace="components/header_footer.html :: new-package-quiz-history"></div>
-    <!-- End New Package and QuizHistory -->
     <!-- Courses area start -->
-    <div class="courses-area section-padding40 fix">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8">
-                    <div class="section-tittle text-center mb-55">
-                        <h2>Searching match</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4" th:each="qh : ${quizHistory}">
-                    <div class="properties properties2 mb-30">
-                        <div class="properties__card">
-                            <div class="date22">
-                                <p><i th:text="${qh.createdTime.toLocaleString()}"></i></p>
-                            </div>
-                            <div class="properties__caption">
-                                <a th:href="@{/practices/detail(id=${qh.id})}"><h3><b th:text="${qh.name}"></b></h3></a>
-                                <p><b th:text="${qh.quizCount}+' Quizs'"></b></p>
-                                <p style="text-align: center">Created by <a href="#" id="created"
-                                                                            th:text="${qh.accountName}"></a></p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="container mt-5 px-5">
+        <div class="mb-4">
+            <h2>Create new quiz package</h2> <span>package name with descriptions,multiple quiz(questions)</span>
         </div>
+        <form class="row" th:action="@{/practices/edit(id=${question.id})}" method="POST">
+            <div class="col-md-4">
+                <div class="card card-blue p-3 text-white mb-3"><span>Terms(Qeustion)</span>
+                    <h4 class="mb-0 yellow">
+                        <div class="inputbox mt-3"><input type="text" name="term" class="form-control"
+                                                          required="required" th:value="${question.question}">
+                            <span></span></div>
+                    </h4>
+                    <span>Definition(Answer)</span>
+                    <h4 class="mb-0 yellow">
+                        <div class="inputbox mt-3"><input type="text" name="ans" class="form-control"
+                                                          required="required" th:value="${question.answer}">
+                            <span></span></div>
+                    </h4>
+                    <div class="hightlight">
+                        <span>EDIT TERMS</span></div>
+                </div>
+            </div>
+            <div class="col-md-8" id="contain">
+                <div class="mt-4 mb-4 d-flex justify-content-between">
+                    <button class="btn btn-success px-3" type="submit"><a>Edit</a></button>
+                </div>
+            </div>
+        </form>
     </div>
     <!-- Courses area End -->
     <!-- Courses area start -->
-    <div th:replace="components/header_footer.html :: featured-page">
-    </div>
-    <div th:replace="components/user_course_detail_modal.html :: courseUserModal">
-    </div>
+    <!--    <div th:replace="components/header_footer.html :: featured-page">-->
+    <!--    </div>-->
+    <!--    <div th:replace="components/user_course_detail_modal.html :: courseUserModal">-->
+    <!--    </div>-->
     <!-- Courses area End -->
     <!-- ? services-area -->
     <div class="services-area services-area2 section-padding40">
@@ -150,6 +149,7 @@
 <th:block th:insert="components/header_footer.html :: common-script">
 </th:block>
 <!-- page-specific js -->
+<script th:src="@{/js/home_page.js}"></script>
 <script th:src="@{/js/home_page.js}"></script>
 <script th:src="@{/js/user_course_detail.js}"></script>
 <div th:replace="components/header_footer.html :: common-script"></div>
